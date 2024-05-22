@@ -45,45 +45,11 @@ struct ContentView: View {
         NavigationStack {
             List {
                 Section("Personal") {
-                ForEach(expenses.items) { item in
-                    if item.type == "Personal" {
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text(item.name)
-                                    .font(.headline)
-                                
-                                Text(item.type)
-                            }
-                            
-                            Spacer()
-                            
-                            Text(item.amount, format: .currency(code:Locale.current.currency?.identifier ?? "USD"))
-                                .foregroundStyle((item.amount <= 10) ? .green : (item.amount > 10 && item.amount < 100) ? .orange : .red)
-                        }
-                    }
-                }
-                .onDelete(perform: removeItems)
+                    listItems(expenses: expenses, type: "Personal")
                 }
                 
                 Section("Business") {
-                ForEach(expenses.items) { item in
-                    if item.type == "Business" {
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text(item.name)
-                                    .font(.headline)
-                                
-                                Text(item.type)
-                            }
-                            
-                            Spacer()
-                            
-                            Text(item.amount, format: .currency(code:Locale.current.currency?.identifier ?? "USD"))
-                                .foregroundStyle((item.amount <= 10) ? .green : (item.amount > 10 && item.amount < 100) ? .orange : .red)
-                        }
-                    }
-                }
-                .onDelete(perform: removeItems)
+                    listItems(expenses: expenses, type: "Business")
                 }
                 
             }
@@ -101,6 +67,27 @@ struct ContentView: View {
     
     func removeItems(at offsets: IndexSet ) {
         expenses.items.remove(atOffsets: offsets)
+    }
+    
+    func listItems(expenses: Expenses, type: String) -> some View {
+        ForEach(expenses.items) { item in
+            if item.type == type {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text(item.name)
+                            .font(.headline)
+                        
+                        Text(item.type)
+                    }
+                    
+                    Spacer()
+                    
+                    Text(item.amount, format: .currency(code:Locale.current.currency?.identifier ?? "USD"))
+                        .foregroundStyle((item.amount <= 10) ? .green : (item.amount > 10 && item.amount < 100) ? .orange : .red)
+                }
+            }
+        }
+        .onDelete(perform: removeItems)
     }
     
 }
