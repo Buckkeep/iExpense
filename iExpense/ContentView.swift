@@ -51,7 +51,6 @@ struct ContentView: View {
                 Section("Business") {
                     listItems(expenses: expenses, type: "Business")
                 }
-                
             }
             .navigationTitle("iExpense")
             .toolbar {
