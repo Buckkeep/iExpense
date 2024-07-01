@@ -35,21 +35,24 @@ struct AddView: View {
             }
             .navigationTitle("Add New Expense")
             .toolbar {
-                Button("Save") {
-                    let item = ExpenseItem(name: name, type: type, amount: amount)
-                    expenses.items.append(item)
-                    dismiss()
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Save") {
+                        let item = ExpenseItem(name: name, type: type, amount: amount)
+                        expenses.items.append(item)
+                        dismiss()
+                    }
+                }
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
                 }
             }
+            .navigationBarBackButtonHidden()
         }
     }
 }
 
-//#Preview {
-//    @Binding var expenses: Expenses
-//    
-//    AddView(expenses: $expenses)
-//}
 
 #Preview {
     AddView(expenses: .constant(Expenses()))
