@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct AddView: View {
+    
     @Environment(\.dismiss) var dismiss
     
     @State private var name = ""
     @State private var type = "Personal"
     @State private var amount = 0.0
     
-    var expenses: Expenses
+    @Binding var expenses: Expenses
     
     let types = ["Business", "Personal"]
     
@@ -44,6 +45,12 @@ struct AddView: View {
     }
 }
 
+//#Preview {
+//    @Binding var expenses: Expenses
+//    
+//    AddView(expenses: $expenses)
+//}
+
 #Preview {
-    AddView(expenses: Expenses())
+    AddView(expenses: .constant(Expenses()))
 }

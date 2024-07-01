@@ -37,9 +37,9 @@ class Expenses {
 
 struct ContentView: View {
     
-    @State private var expenses = Expenses()
+    @State var expenses = Expenses()
     
-    @State private var showingAddExpense = false
+    @State var showingAddExpense = false
     
     var body: some View {
         NavigationStack {
@@ -54,15 +54,13 @@ struct ContentView: View {
             }
             .navigationTitle("iExpense")
             .toolbar {
-                Button("Add Expense", systemImage: "plus") {
-                    showingAddExpense = true
-                }
+                    NavigationLink("Add Expense", destination: AddView(expenses: $expenses))
             }
-            .sheet(isPresented: $showingAddExpense) {
-                AddView(expenses: expenses)
+            
+
             }
         }
-    }
+    
     
     func removeItems(at offsets: IndexSet ) {
         expenses.items.remove(atOffsets: offsets)
